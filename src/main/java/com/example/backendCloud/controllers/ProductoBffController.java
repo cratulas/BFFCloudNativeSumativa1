@@ -26,4 +26,25 @@ public class ProductoBffController {
     public Producto obtener(@PathVariable Long id) {
         return productoClient.obtenerProducto(id);
     }
+
+        @PostMapping
+    public Producto crear(@RequestBody Producto producto) {
+        return productoClient.crearProducto(producto);
+    }
+
+    @PutMapping("/{id}")
+    public Producto actualizar(@PathVariable Long id, @RequestBody Producto producto) {
+        return productoClient.actualizarProducto(id, producto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Long id) {
+        productoClient.eliminarProducto(id);
+    }
+
+    @PutMapping("/{id}/descontar/{cantidad}")
+    public void descontarStock(@PathVariable Long id, @PathVariable int cantidad) {
+        productoClient.descontarStock(id, cantidad);
+    }
+
 }

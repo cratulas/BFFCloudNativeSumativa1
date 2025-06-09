@@ -28,4 +28,24 @@ public class ProductoClient {
     public Producto obtenerProducto(Long id) {
         return restTemplate.getForObject(productoUrl + "/" + id, Producto.class);
     }
+
+    public Producto crearProducto(Producto producto) {
+    return restTemplate.postForObject(productoUrl, producto, Producto.class);
+    }
+
+    public Producto actualizarProducto(Long id, Producto producto) {
+        String url = productoUrl + "/" + id;
+        restTemplate.put(url, producto);
+        return obtenerProducto(id);
+    }
+
+    public void eliminarProducto(Long id) {
+        restTemplate.delete(productoUrl + "/" + id);
+    }
+
+    public void descontarStock(Long id, int cantidad) {
+        String url = productoUrl + "/" + id + "/descontar/" + cantidad;
+        restTemplate.put(url, null);
+    }
+
 }
