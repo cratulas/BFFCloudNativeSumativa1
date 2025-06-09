@@ -10,5 +10,5 @@ COPY target/backendCloud-0.0.1-SNAPSHOT.jar app.jar
 # Exponer el puerto en el que corre tu app (por defecto Spring Boot usa 8080)
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Comando para ejecutar la aplicación usando el perfil 'docker'
+ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "app.jar"]
