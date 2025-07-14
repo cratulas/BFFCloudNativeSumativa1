@@ -12,8 +12,11 @@ import java.util.List;
 @Service
 public class VentaClient {
 
-    @Value("${microservicios.venta-url}")
-    private String ventaUrl;
+    @Value("${microservicios.venta-writer-url}")
+    private String ventaWriterUrl; // POST → microventa
+
+    @Value("${microservicios.venta-reader-url}")
+    private String ventaReaderUrl; // GET → microventaconsumidor
 
     private final RestTemplate restTemplate;
 
@@ -22,12 +25,12 @@ public class VentaClient {
     }
 
     public List<Venta> listarVentas() {
-        ResponseEntity<Venta[]> response = restTemplate.getForEntity(ventaUrl, Venta[].class);
+        ResponseEntity<Venta[]> response = restTemplate.getForEntity(ventaReaderUrl, Venta[].class);
         return Arrays.asList(response.getBody());
     }
 
     public Venta registrarVenta(Venta venta) {
         HttpEntity<Venta> entity = new HttpEntity<>(venta);
-        return restTemplate.postForObject(ventaUrl, entity, Venta.class);
+        return restTemplate.postForObject(ventaWriterUrl, entity, Venta.class);
     }
 }
